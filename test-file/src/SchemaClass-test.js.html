@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/SchemaClass-test.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/NodeJunkie/node-json-schema-class" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SchemaClass.js~SchemaClass.html">SchemaClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Schema">Schema</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/SchemaClass-test.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+
+var process = require(&apos;process&apos;);
+var expect = require(&apos;chai&apos;).expect;
+var SchemaClass = require(&apos;./SchemaClass&apos;).default;
+//import SchemaClass from &apos;json-schema-class&apos;;
+
+/** @test {SchemaClass} **/
+describe(&apos;SchemaClass Public Methods&apos;, function () {
+
+  it(&apos;is able create a basic validator class&apos;, function () {
+
+    //ES6
+    let Validator = new SchemaClass({
+      &quot;type&quot;: &quot;string&quot;
+    });
+
+    // Using a valid input
+    let text = Validator.validate(&quot;Input Text&quot;);
+    expect(text).to.equal(&quot;Input Text&quot;);
+
+    // Using an invalid input
+    expect(function () {
+      Validator.validate(1)
+    }).to.throw(Error);
+  });
+
+  it(&apos;is able to use extends&apos;, function () {
+    class SimpleClass extends SchemaClass {
+      constructor(text) {
+        super({
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;enum&quot;: [&quot;Text&quot;]
+        });
+
+        this.validate(text);
+      }
+    }
+    expect(SimpleClass).to.exist;
+
+    let SimpleModel = new SimpleClass(&quot;Text&quot;);
+
+    expect(SimpleModel).to.exist;
+  });
+
+  it(&apos;is able to create new instances with defaults&apos;, function () {
+    class WithDefaults extends SchemaClass {
+      constructor(id) {
+        super({
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#&quot;,
+          &quot;id&quot;: &quot;WithDefaults&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;check&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;default&quot;: &quot;This is a default value&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        });
+
+        this.id = id;
+
+        this.validate(this);
+      }
+    }
+
+    //On the import side you can instantiate it like so
+    let defaultTest = new WithDefaults(&quot;1&quot;);
+
+    //Expect find the class model&apos;s id
+    expect(defaultTest.id).to.exist;
+
+    //Any defaults should exist after creating a new instance
+    expect(defaultTest.check).to.exist;
+  });
+
+  it(&apos;is able to validate the model data&apos;, function () {
+    class BadData extends SchemaClass {
+      constructor(id) {
+        super({
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#&quot;,
+          &quot;id&quot;: &quot;BadData&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        });
+
+        /**
+         * Do anything you need to do with the data model
+         * You can create a custom Model placeholder or
+         * validate the class directly like so
+         *
+         * let model = this;
+         *  - or -
+         * let model = {}
+         */
+        let model = this;
+        model.id = 1;
+
+        this.validate(model)
+      }
+    }
+
+    expect(BadData).to.exist;
+
+    expect(function () {
+      new BadData(1)
+    }).to.throw(Error);
+
+
+  })
+});
+
+describe(&apos;SchemaClass Private Methods&apos;, function () {
+  it(&apos;is able to throw a schema error using _schemaError&apos;, function () {
+    let myObj = new SchemaClass();
+
+    expect(myObj._schemaError).to.exist;
+    expect(function () {
+      myObj._schemaError()
+    }).to.throw(Error);
+    expect(function () {
+      myObj._schemaError(&apos;Something Happening&apos;)
+    }).to.throw(Error);
+
+  });
+
+  it(&apos;is able to get and set the schema&apos;, function () {
+    let myObj = new SchemaClass();
+
+    expect(myObj.getSchema).to.exist;
+
+    expect(function () {
+      myObj.getSchema()
+    }).to.throw(Error);
+
+    expect(myObj._setSchema).to.exist;
+
+    expect(function () {
+      myObj._setSchema()
+    }).to.throw(Error);
+
+    expect(function () {
+      myObj._setSchema({
+        &quot;type&quot;: &quot;string&quot;
+      })
+    }).to.not.throw(Error);
+
+    expect(myObj.schema).to.deep.equal({
+      &quot;type&quot;: &quot;string&quot;
+    });
+
+    expect(function () {
+      myObj.getSchema()
+    }).to.not.throw(Error);
+
+    expect(myObj.getSchema()).to.deep.equal({
+      &quot;type&quot;: &quot;string&quot;
+    });
+
+
+  });
+
+  it(&apos;is able to get and set a validator&apos;, function () {
+    let myObj = new SchemaClass({
+      &quot;type&quot;: &quot;string&quot;
+    });
+
+    expect(myObj._getValidator).to.exist;
+
+    let test = null;
+
+    /**
+     * The Validator will fail if setValidator is not triggered
+     */
+    expect(function () {
+      test = myObj._getValidator()
+    }).to.throw(Error);
+
+    expect(function () {
+      myObj._setValidator()
+    }).to.not.throw(Error);
+
+    expect(function () {
+      test = myObj._getValidator()
+    }).to.not.throw(Error);
+
+    expect(test).to.exist;
+
+    expect(myObj.schema).to.deep.equal({
+      &quot;type&quot;: &quot;string&quot;
+    });
+
+    expect(function () {
+      myObj.validate(&quot;Input Text&quot;);
+    }).to.not.throw(Error);
+
+    expect(function () {
+      myObj.validate(1);
+    }).to.throw(Error);
+
+
+    expect(function () {
+      myObj._setValidator({
+        &quot;type&quot;: &quot;number&quot;
+      })
+    }).to.not.throw(Error);
+
+    expect(function () {
+      myObj.validate(&quot;Input Text&quot;);
+    }).to.throw(Error);
+
+    expect(function () {
+      myObj.validate(1);
+    }).to.not.throw(Error);
+
+    expect(myObj.schema).to.deep.equal({
+      &quot;type&quot;: &quot;number&quot;
+    });
+
+  });
+
+});</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/SchemaClass.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/NodeJunkie/node-json-schema-class" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SchemaClass.js~SchemaClass.html">SchemaClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Schema">Schema</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/SchemaClass.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+
+import merge from &apos;merge&apos;;
+import events from &apos;events&apos;;
+import Ajv from &apos;ajv&apos;;
+let ajv = Ajv({allErrors: true, useDefaults: true});
+
+/**
+ * Where all things good come from! This Class uses JSON Schema Draft 4 to build
+ *    basic models for the rest of the application. Please See json-schema.org
+ *    and also ajv validator for the basics.
+ *
+ * @example
+ *  import SchemaClass from &apos;json-schema-class&apos;;
+ *  export MyClass extends &apos;SchemaClass&apos;{
+ *    constructor(){
+ *      super({
+ *        &quot;title&quot;: &quot;Example Schema&quot;,
+ *        &quot;type&quot;: &quot;object&quot;,
+ *        &quot;properties&quot;: {
+ *          &quot;firstName&quot;: {
+ *            &quot;type&quot;: &quot;string&quot;
+ *          },
+ *          &quot;lastName&quot;: {
+ *            &quot;type&quot;: &quot;string&quot;
+ *          },
+ *          &quot;age&quot;: {
+ *            &quot;description&quot;: &quot;Age in years&quot;,
+ *            &quot;type&quot;: &quot;integer&quot;,
+ *            &quot;minimum&quot;: 0
+ *          }
+ *        },
+ *        &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;]
+ *      });
+ *
+ *      let model = this;
+ *      model.firstName = &quot;My&quot;
+ *      model.lastName = &quot;Class&quot;
+ *
+ *      this.validate(model) //Validate model and add missing defaults
+ *    )
+ *  }
+ */
+export default class SchemaClass {
+  /**
+   * A valid JSON Schema for this class. You can find examples
+   * at http://json-schema.org/examples.html. There is also a
+   * generator for JSON data. http://jsonschema.net/#/
+   * @example
+   *  {
+ *    &quot;title&quot;: &quot;Example Schema&quot;,
+ *    &quot;type&quot;: &quot;object&quot;,
+ *    &quot;properties&quot;: {
+ *      &quot;firstName&quot;: {
+ *        &quot;type&quot;: &quot;string&quot;
+ *      },
+ *      &quot;lastName&quot;: {
+ *        &quot;type&quot;: &quot;string&quot;
+ *      },
+ *      &quot;age&quot;: {
+ *        &quot;description&quot;: &quot;Age in years&quot;,
+ *        &quot;type&quot;: &quot;integer&quot;,
+ *        &quot;minimum&quot;: 0
+ *      }
+ *    },
+ *    &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;]
+ *  }
+   *
+   * @see http://json-schema.org/
+   * @typedef {Object} Schema
+   */
+
+  /**
+   * Accepts a JSON Schema pattern for Model Building
+   * @param {Schema} schema Schema for the new Class
+   */
+  constructor(schema) {
+    /**
+     * The Schema for this Class
+     * @type {Schema}
+     * @see http://json-schema.org/
+     * @abstract
+     */
+    this.schema = null;
+
+    if (schema) this.schema = schema;
+
+    /**
+     * Class Validator - Instance of ajv.compile()
+     * @see https://www.npmjs.com/package/ajv#compileobject-schema---functionobject-data
+     * @abstract
+     */
+    this.validator = null;
+
+    /**
+     * Event Emitter
+     * @see https://nodejs.org/api/events.html
+     */
+    this.events = new events.EventEmitter();
+
+    /**
+     * A Merge utility for JavaScript Objects
+     * @see https://github.com/yeikos/js.merge
+     */
+    this.merge = merge;
+
+  };
+
+
+  /**
+   * Throw Schema Error - Wrapper for generic schema errors
+   * @param {Error} err Error to throw
+   * @private
+   */
+  _schemaError = (err) =&gt; {
+    if (err) throw new Error(err);
+    throw new Error(&quot;Unknown Error......&quot;);
+  };
+
+  /**
+   * Set the Current Schema
+   * @param {Schema} schema JSON Schema 4
+   * @private
+   */
+  _setSchema = (schema) =&gt; {
+    if (schema) this.schema = schema;
+    else this._schemaError(ReferenceError(&apos;Must Specify Schema!&apos;))
+  };
+
+  /**
+   *
+   * @returns {null}
+   * @private
+   */
+  _getValidator = () =&gt; {
+    if (!this.validator) this._schemaError(new ReferenceError(&quot;Must run _setValidator first!&quot;));
+    return this.validator;
+  };
+
+  /**
+   * Set a Schema Validator to the current instance
+   * @returns {Object}
+   * @private
+   */
+  _setValidator = (schema) =&gt; {
+    if (schema) this._setSchema(schema);
+    var validator = this.validator = ajv.compile(this.getSchema());
+    return validator;
+  };
+
+  /**
+   * Get the Current Schema
+   * @returns {Schema}
+   */
+  getSchema = () =&gt; {
+    if (!this.schema) this._schemaError();
+    return this.schema;
+  };
+  
+  /**
+   * Validate data against the current schema
+   * @param {Object} data
+   * @returns {Object} data
+   */
+  validate(data) {
+    if (!this.validator) this._setValidator();
+    let valid = this._getValidator();
+    if (valid &amp;&amp; valid(data)) return data;
+    else throw this._schemaError(valid.errors[0])
+  };
+
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
