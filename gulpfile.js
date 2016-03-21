@@ -41,12 +41,13 @@ var reporters = {
 /**
  * The CI Checkerz
  */
-
-if (process.env['TRAVIS_BRANCH'] === "master") {
+if(process.env.CI){
   reporters = {
     mocha: {reporter: 'spec'},
     istanbul: {reporters: ["lcov", "text", "json"]}
   };
+}
+if (process.env['TRAVIS_BRANCH'] === "master") {
   gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage', 'deploy-docs', 'release']);
 } else {
   gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage']);
