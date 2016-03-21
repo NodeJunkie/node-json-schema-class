@@ -49,10 +49,6 @@ if(process.env.CI){
 }
 
 gulp.task('publish', ['deploy-docs']);
-if (process.env['TRAVIS_BRANCH'] === "master") {
-  gulp.task('publish', ['deploy-docs', 'release']);
-}
-
 gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage']);
 /**
  * Global Paths for the Gulp Task Runner
