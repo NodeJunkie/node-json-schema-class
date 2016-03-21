@@ -337,55 +337,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber122",
-    "SchemaClass Private Methods",
+    "test-file/src/SchemaClass-test.js.html#lineNumber132",
+    "Private methods for the SchemaClass are used to set and get\n   the current schema for the class. Future plans are to expand\n   this to include the caching features of ajv",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber172",
-    "SchemaClass Private Methods is able to get and set a validator",
+    "test-file/src/SchemaClass-test.js.html#lineNumber182",
+    "Private methods for the SchemaClass are used to set and get\n   the current schema for the class. Future plans are to expand\n   this to include the caching features of ajv is able to get and set a validator",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber136",
-    "SchemaClass Private Methods is able to get and set the schema",
+    "test-file/src/SchemaClass-test.js.html#lineNumber146",
+    "Private methods for the SchemaClass are used to set and get\n   the current schema for the class. Future plans are to expand\n   this to include the caching features of ajv is able to get and set the schema",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber123",
-    "SchemaClass Private Methods is able to throw a schema error using _schemaError",
+    "test-file/src/SchemaClass-test.js.html#lineNumber133",
+    "Private methods for the SchemaClass are used to set and get\n   the current schema for the class. Future plans are to expand\n   this to include the caching features of ajv is able to throw a schema error using _schemaError",
     "test"
   ],
   [
     "schemaclass src/schemaclass.js~schemaclass,schemaclass",
-    "test-file/src/SchemaClass-test.js.html#lineNumber9",
+    "test-file/src/SchemaClass-test.js.html#lineNumber14",
     "SchemaClass Public Methods",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber11",
+    "test-file/src/SchemaClass-test.js.html#lineNumber16",
     "SchemaClass Public Methods is able create a basic validator class",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber46",
+    "test-file/src/SchemaClass-test.js.html#lineNumber51",
     "SchemaClass Public Methods is able to create new instances with defaults",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber28",
+    "test-file/src/SchemaClass-test.js.html#lineNumber33",
     "SchemaClass Public Methods is able to use extends",
     "test"
   ],
   [
     "",
-    "test-file/src/SchemaClass-test.js.html#lineNumber81",
+    "test-file/src/SchemaClass-test.js.html#lineNumber86",
     "SchemaClass Public Methods is able to validate the model data",
     "test"
   ],

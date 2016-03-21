@@ -185,8 +185,8 @@ export default class SchemaClass {
    */
   _setValidator = (schema) =&gt; {
     if (schema) this._setSchema(schema);
-    var validator = this.validator = ajv.compile(this.getSchema());
-    return validator;
+    this.validator = ajv.compile(this.getSchema());
+    return this.validator;
   };
 
   /**
@@ -197,7 +197,7 @@ export default class SchemaClass {
     if (!this.schema) this._schemaError();
     return this.schema;
   };
-  
+
   /**
    * Validate data against the current schema
    * @param {Object} data
