@@ -12,6 +12,8 @@ before_script:
 - npm install -g gulp codecov codeclimate-test-reporter
 script: gulp build
 after_success:
+- git config --global user.email "github@phearzero.com"
+- git config --global user.name "Michael Feher"
 - codeclimate-test-reporter < ./coverage/lcov.info
 - codecov
 - gulp publish
