@@ -1,20 +1,31 @@
 language: node_js
 node_js:
-  - "stable"
-  - "5"
-  - "5.1"
+- stable
+- '5'
+- '5.1'
 env:
+  matrix:
   - CXX=g++-4.8
+  global:
+    secure: 2aU5qyIkZiBfJNrO7IpVcLV0BpTCK1skobAlxSR4t6RxFoxRZh5nwA95YYPbnGsJaHC8po5r2Ev7mh95rDsGOfpo02tWvNyKWL5iuj0NpYu6lFDKDwea3xb0KrgjSACJPPpA3h99Pn2tpaRQCKLYGh41V0YxGCsXovq5Qo1n35TiKRsbUf5Xg9URMUixiDQseYHTWnx3MSrS4m9WnXrvxsUihraj45X/y7VIh1gl0Cyo+E5r0tL8DOY9yKE2iYL3Ql/mSfEHzTSB0ffmH7SPdR8yQRZ5XYxgbU5CKmL1sZgmBCE42AZS8IQ42ID7+9yBRGcgUrHskqNaIsIykENNnnxxiDSO0UAnjW/6K+MZqVHewd95o9haqVrRbM1q3lqOJ+BIMYwVV3neHgoBShp32N+9ETGqbXill4qhdpKhAGmXMsi2eUYx2gTY4trO6uDyZZvUe+wIMue4FtAe2B8Ow8zIwWarJuK4R0JtyT1b6pkB0rIKmKol4ovSNxK4ITg7mG4uG+Ia57IZUXwJ7XcMldYIJfVXOmgHWeqYO1YAqWya5JgN86gCwI5x83Xdhsdln206XmFv3PE9L6aQe1cFIgbthC8PnQ5cYLAMoo6ERQR0LBZd3Tql6bPYJBUjVyoGzPOtZjhuLnHXC2vUHpLKPrjbP0i+2U/4E4YPj/oSp0U=
 before_script:
-  - npm install -g gulp codecov codeclimate-test-reporter
+- npm install -g gulp codecov codeclimate-test-reporter
 script: gulp build
 after_success:
-  - codeclimate-test-reporter < ./coverage/lcov.info
-  - codecov
-  - gulp publish
+- codeclimate-test-reporter < ./coverage/lcov.info
+- codecov
+- gulp publish
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+deploy:
+  provider: npm
+  email: npm@phearzero.com
+  api_key:
+    secure: L1PNxNnwFlMbBjtoypRCDjmbICnXzQRR+Oty6rQIlSR+R2BosUo+Nckh0gd5Go0qGmJQC/i8KHukqrdGNEGkDgKWs2z8mLtqjt3rCUNP+I3xVyPEKFw78j2O308Uyn/dBdJJwW8R1djWzNmvc3Pu8hif+hQmEKTjH40Ixt209x+jVjxKZKdxWKFsB34Iz8FfHnkl/gjdO/cMt6eJg2nUWIEGkGRlXmbLxl6YWe4+N919MW7pjdOdEzishP2mXONP93tJRymDY0171CVSKEqjNT+IXqt2PR3QgUNk0ZQ4KzBr1ZROGHwaLpjZoDnrW3kl/ePq+yWKnHS9z8LzBAg4fe3NkzLiiTuCNU8jHc4Qqe+YqcOju5betgJnwk8WhuP4EAVuXObpPwgRTo6Hi1ecQJLi1UAhG4b0rU1WKokJVewCAx0VSCayt6AUSB//2QzqdhBtJis3E9biHKQPnR3btUxJOAb2fHoaxqosEirLU7wa5jGWaOhD6woWk4zv5p+wCvV6v9Tvs5lUvxq94NWyuBMPP+xRLNtulynus7h4psVFMGGaLFnoh8p5RFPVZit515B/7TwaQuksd14Epd3HEAzgPLI8Kmv+FYBtUGCv9cuFUolX/OWEM9ESA+JPIrG4LFyA+qzybnjLJ6fHAvblkU0Hik7lhlVxc+EYvOxQjVc=
+  on:
+    tags: true
+    repo: NodeJunkie/node-json-schema-class
