@@ -23,6 +23,8 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+  code_climate:
+          repo_token: c8f39fc1633c2876780978746b36de950110909175abf6c6fd7619671b21b923
 deploy:
   provider: npm
   email: npm@phearzero.com
