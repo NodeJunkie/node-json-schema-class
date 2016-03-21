@@ -1,36 +1,19 @@
-# json-schema-class [![Build Status](https://travis-ci.org/NodeJunkie/node-json-schema-class.svg?branch=master)](https://travis-ci.org/NodeJunkie/node-json-schema-class)
-[![codecov.io](https://codecov.io/github/NodeJunkie/node-json-schema-class/coverage.svg?branch=master)](https://codecov.io/github/NodeJunkie/node-json-schema-class?branch=master)[![Code Climate](https://codeclimate.com/github/NodeJunkie/node-json-schema-class/badges/gpa.svg)](https://codeclimate.com/github/NodeJunkie/node-json-schema-class)[![esdocs](http://nodejunkie.github.io/node-json-schema-class/badge.svg)](http://nodejunkie.github.io/node-json-schema-class/)[![Issue Count](https://codeclimate.com/github/NodeJunkie/node-json-schema-class/badges/issue_count.svg)](https://codeclimate.com/github/NodeJunkie/node-json-schema-class)[![Dependencies](https://david-dm.org/nodejunkie/node-json-schema-class.svg)](https://david-dm.org/nodejunkie/node-json-schema-class#info)[![devDependency Status](https://david-dm.org/nodejunkie/node-json-schema-class/dev-status.svg)](https://david-dm.org/nodejunkie/node-json-schema-class#info=devDependencies)
+'use strict';
 
-[![Throughput Graph](https://graphs.waffle.io/NodeJunkie/node-json-schema-class/throughput.svg)](https://waffle.io/NodeJunkie/node-json-schema-class/metrics)![codecov.io](https://codecov.io/github/NodeJunkie/node-json-schema-class/branch.svg?branch=master)
+var process = require('process');
+var expect = require('chai').expect;
+var SchemaClass = require('./SchemaClass').default;
 
-Base Class that includes JSON Schema validations via ajv package.
+/**
+ * You should be able to validate the class itself against the current
+ *    schema draft. You can also store the model data in a class prop
+ *    and validate it in the constructor/methods/other props.
+ */
 
-## Installing
+/** @test {SchemaClass} **/
+describe('SchemaClass Public Methods', function () {
 
-```bash
-npm install json-schema-class --save
-```
-
-## Importing
-
-```JavaScript
-import SchemaClass from 'json-schema-class';
-```
-
-# What is SchemaClass able to do you ask?
-
-## SchemaClass Public Methods
-
-
-You should be able to validate the class itself against the current
-schema draft. You can also store the model data in a class prop
-and validate it in the constructor/methods/other props.
-
-
-#### It is able create a basic validator class
-
-```javascript
-    
+  it('is able create a basic validator class', function () {
 
     //ES6
     let Validator = new SchemaClass({
@@ -45,13 +28,9 @@ and validate it in the constructor/methods/other props.
     expect(function () {
       Validator.validate(1)
     }).to.throw(Error);
-  
-```
+  });
 
-#### It is able to use extends
-
-```javascript
-    
+  it('is able to use extends', function () {
     class SimpleClass extends SchemaClass {
       constructor(text) {
         super({
@@ -67,13 +46,9 @@ and validate it in the constructor/methods/other props.
     let SimpleModel = new SimpleClass("Text");
 
     expect(SimpleModel).to.exist;
-  
-```
+  });
 
-#### It is able to create new instances with defaults
-
-```javascript
-    
+  it('is able to create new instances with defaults', function () {
     class WithDefaults extends SchemaClass {
       constructor(id) {
         super({
@@ -106,13 +81,9 @@ and validate it in the constructor/methods/other props.
 
     //Any defaults should exist after creating a new instance
     expect(defaultTest.check).to.exist;
-  
-```
+  });
 
-#### It is able to validate the model data
-
-```javascript
-    
+  it('is able to validate the model data', function () {
     class BadData extends SchemaClass {
       constructor(id) {
         super({
@@ -150,21 +121,16 @@ and validate it in the constructor/methods/other props.
     }).to.throw(Error);
 
 
-  
-```
+  })
+});
 
-## SchemaClass Private Methods
-
-
-Private methods for the SchemaClass are used to set and get
-the current schema for the class. Future plans are to expand
-this to include the caching features of ajv
-
-
-#### It is able to throw a schema error using _schemaError
-
-```javascript
-    
+/**
+ * Private methods for the SchemaClass are used to set and get
+ *    the current schema for the class. Future plans are to expand
+ *    this to include the caching features of ajv
+ */
+describe('SchemaClass Private Methods', function () {
+  it('is able to throw a schema error using _schemaError', function () {
     let myObj = new SchemaClass();
 
     expect(myObj._schemaError).to.exist;
@@ -175,13 +141,9 @@ this to include the caching features of ajv
       myObj._schemaError('Something Happening')
     }).to.throw(Error);
 
-  
-```
+  });
 
-#### It is able to get and set the schema
-
-```javascript
-    
+  it('is able to get and set the schema', function () {
     let myObj = new SchemaClass();
 
     expect(myObj.getSchema).to.exist;
@@ -215,13 +177,9 @@ this to include the caching features of ajv
     });
 
 
-  
-```
+  });
 
-#### It is able to get and set a validator
-
-```javascript
-    
+  it('is able to get and set a validator', function () {
     let myObj = new SchemaClass({
       "type": "string"
     });
@@ -278,6 +236,6 @@ this to include the caching features of ajv
       "type": "number"
     });
 
-  
-```
+  });
 
+});
