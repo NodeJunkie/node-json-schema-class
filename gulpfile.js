@@ -2,7 +2,6 @@
 
 require('babel-core/register');
 const gulp = require('gulp');
-require('gulp-release-it')(gulp);
 
 //Test Runner & Code Coverage
 const mocha = require('gulp-mocha');
