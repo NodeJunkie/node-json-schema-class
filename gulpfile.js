@@ -47,12 +47,9 @@ if(process.env.CI){
     istanbul: {reporters: ["lcov", "text", "json"]}
   };
 }
-if (process.env['TRAVIS_BRANCH'] === "master") {
-  gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage', 'deploy-docs', 'release']);
-} else {
-  gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage']);
-}
 
+gulp.task('publish', ['deploy-docs', 'release']);
+gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage']);
 /**
  * Global Paths for the Gulp Task Runner
  * @type {{src: string[], tests: string[], docs: string, coverage: string}}
