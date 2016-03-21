@@ -3,19 +3,18 @@ node_js:
   - "stable"
   - "5"
   - "5.1"
-  - "4"
-  - "4.2"
-  - "4.1"
-  - "4.0"
-  - "0.12"
-  - "0.11"
-  - "0.10"
-  - "0.8"
-  - "0.6"
   - "iojs"
+env:
+  - CXX=g++-4.8
 before_script:
   - npm install -g gulp codecov codeclimate-test-reporter
 script: gulp build
 after_success:
   - codeclimate-test-reporter < ./coverage/lcov.info
   - codecov
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
