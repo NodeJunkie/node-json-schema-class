@@ -41,14 +41,13 @@ var reporters = {
 /**
  * The CI Checkerz
  */
-if (process.env['CI']) {
-  if (process.env['TRAVIS_BRANCH'] === "master") {
-    reporters = {
-      mocha: {reporter: 'spec'},
-      istanbul: {reporters: ["lcov", "text", "json"]}
-    };
-    gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage', 'deploy-docs', 'release']);
-  }
+
+if (process.env['TRAVIS_BRANCH'] === "master") {
+  reporters = {
+    mocha: {reporter: 'spec'},
+    istanbul: {reporters: ["lcov", "text", "json"]}
+  };
+  gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage', 'deploy-docs', 'release']);
 } else {
   gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage']);
 }
