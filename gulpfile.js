@@ -110,6 +110,14 @@ const docs = {
     }
   }
 };
+
+if(process.env.CI){
+  var accessToken = process.env.GH_ACCESS_TOKEN;
+  docs.deploy = {
+    force: true,
+    remoteUrl:  'https://' + accessToken + '@github.com/NodeJunkie/node-json-schema-class.git'
+  };
+}
 //Generate Documentation
 gulp.task('docs', () => {
   return gulp.src("./src")
