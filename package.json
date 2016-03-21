@@ -1,6 +1,6 @@
 {
   "name": "json-schema-class",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An Abstract Class that uses JSON Schema validation to build an extensible application with strongish type",
   "main": "lib/SchemaClass.js",
   "scripts": {
