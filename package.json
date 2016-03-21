@@ -41,7 +41,6 @@
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-mocha": "^2.2.0",
     "gulp-plumber": "^1.1.0",
-    "gulp-release-it": "^1.0.10",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-watch": "^4.3.5",
     "json-file": "^0.1.0",
@@ -50,7 +49,6 @@
   },
   "dependencies": {
     "ajv": "^3.8.5",
-    "gulp-bump": "^2.0.1",
     "merge": "^1.2.0"
   }
 }

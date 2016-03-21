@@ -2,7 +2,6 @@
 
 require('babel-core/register');
 const gulp = require('gulp');
-require('gulp-release-it')(gulp);
 
 //Test Runner & Code Coverage
 const mocha = require('gulp-mocha');
@@ -49,10 +48,6 @@ if(process.env.CI){
 }
 
 gulp.task('publish', ['deploy-docs']);
-if (process.env['TRAVIS_BRANCH'] === "master") {
-  gulp.task('publish', ['deploy-docs', 'release']);
-}
-
 gulp.task('build', ['compile', 'docs', 'test', 'enforce-code-coverage', 'enforce-doc-coverage']);
 /**
  * Global Paths for the Gulp Task Runner
@@ -110,6 +105,14 @@ const docs = {
     }
   }
 };
+
+if(process.env.CI){
+  var accessToken = process.env.GH_ACCESS_TOKEN;
+  docs.deploy = {
+    force: true,
+    remoteUrl:  'https://' + accessToken + '@github.com/NodeJunkie/node-json-schema-class.git'
+  };
+}
 //Generate Documentation
 gulp.task('docs', () => {
   return gulp.src("./src")
