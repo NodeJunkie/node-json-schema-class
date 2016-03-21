@@ -38,7 +38,7 @@
     "gulp-esdoc": "^0.2.0",
     "gulp-gh-pages": "^0.5.4",
     "gulp-inject-modules": "^0.1.1",
-    "gulp-istanbul": "^0.10.3",
+    "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-mocha": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-release-it": "^1.0.10",
