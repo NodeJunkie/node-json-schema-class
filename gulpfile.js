@@ -23,7 +23,6 @@ const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 
 //NodeJS Tools
-const del = require('del');
 const jsonfile = require('jsonfile');
 const acquit = require('acquit');
 const fs = require('fs');
@@ -170,9 +169,7 @@ gulp.task('test', (cb) => {
         .on('end', cb);
     });
 });
-gulp.task('coverage-clean', function (cb) {
-  del(['coverage'], cb);
-});
+
 gulp.task('enforce-code-coverage', function () {
   var options = {
     thresholds: {
