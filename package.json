@@ -1,5 +1,5 @@
 {
-  "name": "json-schema-class",
+  "name": "@nodejunkie/json-schema-class",
   "version": "0.0.1",
   "description": "An Abstract Class that uses JSON Schema validation to build an extensible application with strongish type",
   "main": "index.js",
@@ -10,9 +10,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NodeJunkie/node-json-schema-class.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "json-schema"
