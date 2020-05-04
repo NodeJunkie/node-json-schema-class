@@ -3,7 +3,7 @@
 import merge from 'merge';
 import events from 'events';
 import Ajv from 'ajv';
-let ajv = Ajv({allErrors: true, useDefaults: true});
+let ajv = Ajv({useDefaults: true, logger: false});
 
 /**
  * Where all things good come from! This Class uses JSON Schema Draft 4 to build
@@ -112,7 +112,7 @@ export default class SchemaClass {
    * @param {Error} err Error to throw
    * @private
    */
-  _schemaError = (err) => {
+  _schemaError(err) {
     if (err) throw new Error(err);
     throw new Error("Unknown Error......");
   };
@@ -122,7 +122,7 @@ export default class SchemaClass {
    * @param {Schema} schema JSON Schema 4
    * @private
    */
-  _setSchema = (schema) => {
+  _setSchema(schema) {
     if (schema) this.schema = schema;
     else this._schemaError(ReferenceError('Must Specify Schema!'))
   };
@@ -132,7 +132,7 @@ export default class SchemaClass {
    * @returns {null}
    * @private
    */
-  _getValidator = () => {
+  _getValidator() {
     if (!this.validator) this._schemaError(new ReferenceError("Must run _setValidator first!"));
     return this.validator;
   };
@@ -142,7 +142,7 @@ export default class SchemaClass {
    * @returns {Object}
    * @private
    */
-  _setValidator = (schema) => {
+  _setValidator(schema) {
     if (schema) this._setSchema(schema);
     this.validator = ajv.compile(this.getSchema());
     return this.validator;
@@ -152,7 +152,7 @@ export default class SchemaClass {
    * Get the Current Schema
    * @returns {Schema}
    */
-  getSchema = () => {
+  getSchema() {
     if (!this.schema) this._schemaError();
     return this.schema;
   };

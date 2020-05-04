@@ -1,18 +1,13 @@
-'use strict';
-
-var process = require('process');
-var expect = require('chai').expect;
-var SchemaClass = require('./SchemaClass').default;
-
+const chai = require('chai');
+const SchemaClass = require('../src/SchemaClass').default;
+const expect = chai.expect;
 /**
  * You should be able to validate the class itself against the current
  *    schema draft. You can also store the model data in a class prop
  *    and validate it in the constructor/methods/other props.
+ *  @test {SchemaClass}
  */
-
-/** @test {SchemaClass} **/
 describe('SchemaClass Public Methods', function () {
-
   it('is able create a basic validator class', function () {
 
     //ES6
@@ -52,7 +47,6 @@ describe('SchemaClass Public Methods', function () {
     class WithDefaults extends SchemaClass {
       constructor(id) {
         super({
-          "$schema": "http://json-schema.org/draft-04/schema#",
           "id": "WithDefaults",
           "type": "object",
           "properties": {
@@ -87,7 +81,6 @@ describe('SchemaClass Public Methods', function () {
     class BadData extends SchemaClass {
       constructor(id) {
         super({
-          "$schema": "http://json-schema.org/draft-04/schema#",
           "id": "BadData",
           "type": "object",
           "properties": {
