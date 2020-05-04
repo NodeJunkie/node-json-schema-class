@@ -1,8 +1,8 @@
 language: node_js
 node_js:
 - stable
-- '5'
-- '5.1'
+- '10'
+- '11'
 env:
   matrix:
   - CXX=g++-4.8
