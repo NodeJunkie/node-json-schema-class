@@ -1,8 +1,8 @@
 language: node_js
 node_js:
 - stable
-- '5'
-- '5.1'
+- '10'
+- '11'
 env:
   matrix:
   - CXX=g++-4.8
@@ -10,13 +10,12 @@ env:
     secure: QTOPXT57VW/C2R/Md0ucRWwx+mGw25Ff31oSJ+2oLJzrjUj4Ab/xFVXfgW7lzzng6iZizGAIMbzcgE+952p1iVkITppwpJUf6RvMm7X0H67AiBju7RJ6PYnO8YfjH8Qs7BL7p+w0TOQ6IIGNpk1BP3C9eIXfn7E58RxnFgUoDkGe+qd6TrwHvye/QdSUogYmnyRSkcdkLFyQwq+4861iWHFkM6WhX8bGMCZkgXRR3ZKOXgw/GwOMHllLctVGAVXjfZUtW5TUF1AplJjUUT4bCJ6sauZYacSZTl59+MvLcJqGw4c7JQeBc0f4FqitaqjK9kGm//Br4RPU+9QMmsFN8f7kFC8cNvc8l+CYqoFuy0ejFQjo6STmx6TEMmaYUZud7KxckAkMSmuRo3mdduly9A321oz81PrM0q5SpO15FqUh02n3mpK+0+r78nB9lRJvznH3hQrBTmZ++AhQj+VceuQ9gDRL87O7OgA/qFdx5IcBlf09368dkP60CHjRipYJfnIseIVMXFX0cbR14mZgChdX867nGPsw/6TMHtCHdJMFR27x8fQVDFDFP9oVzqbPfAVGIrSdUo90pp5MHKca1dNnB8/zrnxPZIGs+pwKUzoOSZ1xZLqlANLJsYeVbqOML9iGA0gTxRtBe8q8D/+qkOt/oAeNmjFcf1eZqqkRQHg=
 before_script:
 - npm install -g gulp codecov codeclimate-test-reporter
-script: gulp build
+script: npm test
 after_success:
 - git config --global user.email "github@phearzero.com"
 - git config --global user.name "Michael Feher"
 - codeclimate-test-reporter < ./coverage/lcov.info
 - codecov
-- gulp publish
 addons:
   apt:
     sources:

@@ -1,20 +1,16 @@
 #Developer files
 .idea
 *.iml
-.tmp
-*-compiled.js
-*-compiled.js.map
 *.js.map
-.babelrc
 .gitignore
 .npmignore
 .travis.yml
-esdocs.json
-gulpfile.js
+.eslintrc.js
+.codeclimate.yml
 
 # Source Folder
-src
-bin
+scripts
+test
 
 # Logs
 logs
