@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "An Abstract Class that uses JSON Schema validation to build an extensible application with strongish type",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest --collectCoverage",
     "docs": "node -r esm scripts/generate-readme.js && esdoc"
