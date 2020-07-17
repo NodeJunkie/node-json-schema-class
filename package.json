@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/NodeJunkie/node-json-schema-class#readme",
   "dependencies": {
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.3",
     "merge": "^1.2.1"
   },
   "devDependencies": {
