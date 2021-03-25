@@ -47,7 +47,6 @@ describe('SchemaClass Public Methods', function () {
     class WithDefaults extends SchemaClass {
       constructor(id) {
         super({
-          "id": "WithDefaults",
           "type": "object",
           "properties": {
             "id": {
@@ -81,7 +80,6 @@ describe('SchemaClass Public Methods', function () {
     class BadData extends SchemaClass {
       constructor(id) {
         super({
-          "id": "BadData",
           "type": "object",
           "properties": {
             "id": {

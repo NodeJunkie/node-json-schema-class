@@ -77,7 +77,6 @@ expect(SimpleModel).to.exist;
     class WithDefaults extends SchemaClass {
   constructor(id) {
     super({
-      "id": "WithDefaults",
       "type": "object",
       "properties": {
         "id": {
@@ -113,7 +112,6 @@ expect(defaultTest.check).to.exist;
     class BadData extends SchemaClass {
   constructor(id) {
     super({
-      "id": "BadData",
       "type": "object",
       "properties": {
         "id": {

@@ -3,7 +3,7 @@
 import merge from 'merge';
 import events from 'events';
 import Ajv from 'ajv';
-let ajv = Ajv({useDefaults: true, logger: false});
+let ajv = new Ajv({useDefaults: true, logger: false});
 
 /**
  * Where all things good come from! This Class uses JSON Schema Draft 4 to build

@@ -37,4 +37,4 @@ function generateTestBasedDocs(filePath) {
   fs.writeFileSync('./README.md', mdOutput);
 }
 
-generateTestBasedDocs('./test/main.js');
+generateTestBasedDocs('./test/spec.js');
