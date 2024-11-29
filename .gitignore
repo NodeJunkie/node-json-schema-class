@@ -1,3 +1,6 @@
+# Typescript files
+*.ts
+
 #Developer files
 .idea
 *.iml
@@ -6,7 +9,6 @@
 *-compiled.js.map
 
 # Dist Folder
-lib
 .publish
 
 # Logs
