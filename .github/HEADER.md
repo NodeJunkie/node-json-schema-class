@@ -1,5 +1,6 @@
 # json-schema-class 
-[![Build Status](https://travis-ci.com/NodeJunkie/node-json-schema-class.svg?branch=master)](https://travis-ci.com/NodeJunkie/node-json-schema-class)
+[![Delivery](https://github.com/NodeJunkie/node-json-schema-class/actions/workflows/cd.yml/badge.svg)](https://github.com/NodeJunkie/node-json-schema-class/actions/workflows/cd.yml)
+[![Integration](https://github.com/NodeJunkie/node-json-schema-class/actions/workflows/ci.yml/badge.svg)](https://github.com/NodeJunkie/node-json-schema-class/actions/workflows/ci.yml)
 [![codecov.io](https://codecov.io/github/NodeJunkie/node-json-schema-class/coverage.svg?branch=master)](https://codecov.io/github/NodeJunkie/node-json-schema-class?branch=master)
 [![typedoc](http://nodejunkie.github.io/node-json-schema-class/coverage.svg)](http://nodejunkie.github.io/node-json-schema-class/)
 
